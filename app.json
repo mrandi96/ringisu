@@ -4,11 +4,11 @@
     "slug": "ringisu",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/raven.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash-raven.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffc400"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,8 +21,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/raven.png",
+        "backgroundColor": "#FFC400"
       }
     },
     "web": {
