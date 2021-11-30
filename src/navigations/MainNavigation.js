@@ -8,12 +8,11 @@ export default () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false
+        headerShown: false,
       }}
-      initialRouteName="BottomTab"
-    >
+      initialRouteName="BottomTab">
       <Stack.Screen name="BottomTab" component={BottomTabNavigation} />
       <Stack.Screen name="Landing" component={LandingNavigation} />
     </Stack.Navigator>
-  )
-}
+  );
+};

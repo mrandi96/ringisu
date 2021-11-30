@@ -2,14 +2,17 @@ import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
-import MainNavigation from './navigations/MainNavigation';
+import MainNavigation from './src/navigations/MainNavigation';
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <MainNavigation />
-  </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <MainNavigation />
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
 

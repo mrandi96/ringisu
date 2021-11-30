@@ -7,16 +7,16 @@ export default () => {
     container: {
       flex: 1,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
     },
     text: {
-      color: Colors.black
-    }
+      color: Colors.black,
+    },
   });
 
   return (
     <View style={styles.container}>
-      <Title style={styles.text}>Contact Screen</Title>
+      <Title style={styles.text}>Register Screen</Title>
     </View>
-  )
-}
+  );
+};

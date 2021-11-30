@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "ringisu",
+    "name": "Ringisu",
     "slug": "ringisu",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/raven.png",
+    "icon": "./assets/icon-raven.png",
     "splash": {
       "image": "./assets/splash-raven.png",
       "resizeMode": "contain",
@@ -17,13 +17,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ringisu.app",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.20517291208-bfdr7518agt1g5v83elb8lg9k2r0hb52"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/raven.png",
         "backgroundColor": "#FFC400"
-      }
+      },
+      "package": "com.ringisu.app"
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#FFC400",
+      "translucent": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
