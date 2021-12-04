@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import { Colors } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -14,10 +14,13 @@ import { USER_CREDENTIALS } from '../appConfig';
 
 const Tab = createMaterialBottomTabNavigator();
 
-export default ({ navigation }) => {
+export default ({ navigation, darkMode, setDarkMode }) => {
+  const { colors } = useTheme();
+
   const styles = StyleSheet.create({
     barStyle: {
-      backgroundColor: Colors.amberA400,
+      backgroundColor: colors.barColor,
+      color: colors.barIcon,
     },
   });
 
@@ -37,16 +40,21 @@ export default ({ navigation }) => {
         navigation.navigate('Landing');
       }
     });
-  }, [navigation]);
+  });
 
   return (
-    <Tab.Navigator shifting barStyle={styles.barStyle} initialRouteName="Home">
+    <Tab.Navigator
+      shifting
+      barStyle={styles.barStyle}
+      activeColor={colors.barIcon}
+      inactiveColor={colors.barIcon2}
+      initialRouteName="Home">
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         listeners={listeners}
         options={{
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({ color, focused }) => (
             <Icons name="home" color={color} size={26} />
           ),
         }}
@@ -75,7 +83,13 @@ export default ({ navigation }) => {
       />
       <Tab.Screen
         name="Account"
-        component={AccountScreen}
+        children={props => (
+          <AccountScreen
+            {...props}
+            darkMode={darkMode}
+            setDarkMode={setDarkMode}
+          />
+        )}
         listeners={listeners}
         options={{
           tabBarIcon: ({ color }) => (

@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {
-  SafeAreaView as View,
-  StyleSheet,
-  FlatList,
-  Dimensions,
-} from 'react-native';
+import { StyleSheet, FlatList, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Colors, Title, Searchbar } from 'react-native-paper';
+import { Colors, Title } from 'react-native-paper';
 import * as Contacts from 'expo-contacts';
+import View from '../components/SafeAreaView';
 import ContactItem from '../components/ContactItem';
-import { contactData } from '../utils/mockData';
+import Searchbar from '../components/Searchbar';
+// import { contactData } from '../utils/mockData';
 
 export default ({ navigation }) => {
   const styles = StyleSheet.create({
@@ -47,42 +44,24 @@ export default ({ navigation }) => {
     setRenderContacts(filteredContacts);
   }, [search, contacts]);
 
-  const getMockContactList = () => {
-    setContacts(contactData);
-    setRenderContacts(contactData);
-  };
+  // const getMockContactList = () => {
+  //   setContacts(contactData);
+  //   setRenderContacts(contactData);
+  // };
 
   const getContactList = async () => {
-    const contactAS = await AsyncStorage.getItem('@contacts');
-    if (contactAS) {
-      const parsedContacts = JSON.parse(contactAS);
-      setContacts(parsedContacts);
-      setRenderContacts(parsedContacts);
-    } else {
-      const { status } = await Contacts.requestPermissionsAsync();
-      if (status === 'granted') {
-        const { data } = await Contacts.getContactsAsync({
-          sort: Contacts.SortTypes.FirstName,
-        });
+    const { status } = await Contacts.requestPermissionsAsync();
+    if (status === 'granted') {
+      const { data } = await Contacts.getContactsAsync({
+        sort: Contacts.SortTypes.FirstName,
+      });
 
-        if (data.length) {
-          await AsyncStorage.setItem('@contacts', JSON.stringify(data));
-          setContacts(data);
-          setRenderContacts(data);
-        }
+      if (data.length) {
+        await AsyncStorage.setItem('@contacts', JSON.stringify(data));
+        setContacts(data);
+        setRenderContacts(data);
       }
     }
-  };
-
-  const onEndReached = () => {
-    const pagedData = [];
-    for (let i = paging; i < paging + 25; i += 1) {
-      if (i < contacts.length) {
-        pagedData.push(contacts[i]);
-      }
-    }
-    setPaging(25 + 1);
-    setRenderContacts(pagedData);
   };
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
-import { Button, Colors, Title, FAB } from 'react-native-paper';
+import { Colors, Title, FAB } from 'react-native-paper';
+import Button from '../components/Button';
 import * as Calendar from 'expo-calendar';
 
 export default ({ navigation }) => {

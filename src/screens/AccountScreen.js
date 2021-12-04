@@ -1,35 +1,42 @@
 import React, { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, StyleSheet } from 'react-native';
-import { Colors, Title, Button, Snackbar } from 'react-native-paper';
+import { Title, Button, Snackbar, Switch, Text } from 'react-native-paper';
 import GoogleSignIn from 'expo-google-sign-in';
 import { USER_CREDENTIALS } from '../appConfig';
 
-export default ({ navigation }) => {
+export default ({ navigation, darkMode, setDarkMode }) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      backgroundColor: 'white',
     },
-    text: {
-      color: Colors.black,
+    formInput: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      paddingLeft: 5,
+      borderWidth: 1,
+      borderRadius: 7,
+      marginVertical: 5,
     },
   });
 
   const [visible, setVisible] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState('test');
 
   const onDismissSnackBar = () => {
     setVisible(false);
   };
 
-  const logoutHandler = async () => {
-    if (!__DEV__) {
-      await GoogleSignIn.signOutAsync();
-    }
+  const logoutHandler = () => {
     AsyncStorage.removeItem(USER_CREDENTIALS)
-      .then(() => {
+      .then(async () => {
+        if (!__DEV__) {
+          await GoogleSignIn.signOutAsync();
+        }
         navigation.navigate('Landing');
       })
       .catch(e => {
@@ -41,12 +48,17 @@ export default ({ navigation }) => {
           err = e.message;
         }
         setError(err);
+        setVisible(true);
       });
   };
 
   return (
     <View style={styles.container}>
-      <Title style={styles.text}>Account Screen</Title>
+      <Title>Account Screen</Title>
+      <View style={styles.formInput}>
+        <Text>Dark Mode</Text>
+        <Switch value={darkMode} onValueChange={setDarkMode} color="black" />
+      </View>
       <Button onPress={logoutHandler} mode="contained">
         Logout
       </Button>
